@@ -7,4 +7,4 @@ RUN /usr/local/bin/ansible-runner.sh image
 ENV UID=1024
 ENV USER=sonarr
 COPY container/* /etc/ansible.d/container/
-CMD ["/usr/local/bin/sonarr-runner"]
+CMD ["/usr/local/bin/sonarr-runner.sh"]
