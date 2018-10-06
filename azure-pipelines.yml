@@ -9,7 +9,7 @@ pool:
   vmImage: 'Ubuntu 16.04'
 
 variables:
-  imageName: '$(system.TeamProject):$(build.SourceVersion)'
+  imageName: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
 
 steps:
 - task: Docker@1
