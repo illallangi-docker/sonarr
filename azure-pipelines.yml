@@ -3,14 +3,18 @@ name: $(build.SourceVersion)$(Rev:.r)
 pool:
   vmImage: 'Ubuntu 16.04'
 
-variables:
-  imageName: 'illallangi/$(system.TeamProject):latest'
-
 steps:
 - task: Docker@1
   displayName: 'Build an image'
-  inputs:
-    imageName: '$(imageName)'
+  strategy:
+    matrix:
+      naked:
+        imageName: 'illallangi/$(system.TeamProject)'
+      date:
+        imageName: 'illallangi/$(system.TeamProject):$(Date:yyyyMMdd)'
+      version:
+        imageName: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
+
 - task: Docker@1
   displayName: Login
   inputs:
@@ -21,7 +25,8 @@ steps:
   displayName: 'Push an image'
   inputs:
     command: 'push'
-    imageName: 'illallangi/$(system.TeamProject)'
+    imageName: '$(imageName)'
 #    imageName: 'illallangi/$(system.TeamProject):latest'
 #    imageName: 'illallangi/$(system.TeamProject):$(Date:yyyyMMdd)'
+#    imageName: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
 #    imageName: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
