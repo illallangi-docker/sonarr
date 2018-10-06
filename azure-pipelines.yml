@@ -21,6 +21,7 @@ steps:
   displayName: 'Push an image'
   inputs:
     command: 'push'
-    imageName: 'illallangi/$(system.TeamProject):latest'
-    imageName: 'illallangi/$(system.TeamProject):$(Date:yyyyMMdd)'
-    imageName: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
+    imageName: 'illallangi/$(system.TeamProject)'
+#    imageName: 'illallangi/$(system.TeamProject):latest'
+#    imageName: 'illallangi/$(system.TeamProject):$(Date:yyyyMMdd)'
+#    imageName: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
