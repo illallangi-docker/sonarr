@@ -3,19 +3,24 @@ name: $(build.SourceVersion)$(Rev:.r)
 pool:
   vmImage: 'Ubuntu 16.04'
 
+variables:
+  tagLatest:  'illallangi/$(system.TeamProject):latest'
+  tagDate:    'illallangi/$(system.TeamProject):$(Date:yyyyMMdd)'
+  tagVersion: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
+
 steps:
 - task: Docker@1
   displayName: 'Build an image'
   inputs:
-    imageName: 'illallangi/$(system.TeamProject):latest'
+    imageName: '$(tagLatest)'
 - task: Docker@1
   displayName: 'Build an image'
   inputs:
-    imageName: 'illallangi/$(system.TeamProject):$(Date:yyyyMMdd)'
+    imageName: '$(tagDate)'
 - task: Docker@1
   displayName: 'Build an image'
   inputs:
-    imageName: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
+    imageName: '$(tagVersion)'
 - task: Docker@1
   displayName: Login
   inputs:
@@ -26,14 +31,14 @@ steps:
   displayName: 'Push an image'
   inputs:
     command: 'push'
-    imageName: 'illallangi/$(system.TeamProject):latest'
+    imageName: '$(tagLatest)'
 - task: Docker@1
   displayName: 'Push an image'
   inputs:
     command: 'push'
-    imageName: 'illallangi/$(system.TeamProject):$(Date:yyyyMMdd)'
+    imageName: '$(tagDate)'
 - task: Docker@1
   displayName: 'Push an image'
   inputs:
     command: 'push'
-    imageName: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
+    imageName: '$(tagVersion)'
