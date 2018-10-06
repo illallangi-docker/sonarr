@@ -9,7 +9,7 @@ pool:
   vmImage: 'Ubuntu 16.04'
 
 variables:
-  imageName: 'illallangi.azurecr.io/$(build.DefinitionName):$(build.BuildNumber)'
+  imageName: '$(system.TeamProject):$(build.SourceVersion)'
 
 steps:
 - task: Docker@1
@@ -19,8 +19,6 @@ steps:
 - task: Docker@1
   displayName: Login
   inputs:
-    azureSubscriptionEndpoint: illallangi_arm
-    azureContainerRegistry: illallangi.azurecr.io
     command: login
 - task: Docker@1
   displayName: 'Push an image'
