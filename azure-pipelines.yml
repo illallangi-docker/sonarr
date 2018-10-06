@@ -5,7 +5,6 @@ pool:
 
 variables:
   tagLatest:  'illallangi/$(system.TeamProject):latest'
-  tagDate:    'illallangi/$(system.TeamProject):$(Date:yyyyMMdd)'
   tagVersion: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
 
 steps:
@@ -13,10 +12,6 @@ steps:
   displayName: 'Build an image'
   inputs:
     imageName: '$(tagLatest)'
-- task: Docker@1
-  displayName: 'Build an image'
-  inputs:
-    imageName: '$(tagDate)'
 - task: Docker@1
   displayName: 'Build an image'
   inputs:
@@ -32,11 +27,6 @@ steps:
   inputs:
     command: 'push'
     imageName: '$(tagLatest)'
-- task: Docker@1
-  displayName: 'Push an image'
-  inputs:
-    command: 'push'
-    imageName: '$(tagDate)'
 - task: Docker@1
   displayName: 'Push an image'
   inputs:
