@@ -6,15 +6,16 @@ pool:
 steps:
 - task: Docker@1
   displayName: 'Build an image'
-  strategy:
-    matrix:
-      naked:
-        imageName: 'illallangi/$(system.TeamProject)'
-      date:
-        imageName: 'illallangi/$(system.TeamProject):$(Date:yyyyMMdd)'
-      version:
-        imageName: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
-
+  inputs:
+    imageName: 'illallangi/$(system.TeamProject):latest'
+- task: Docker@1
+  displayName: 'Build an image'
+  inputs:
+    imageName: 'illallangi/$(system.TeamProject):$(Date:yyyyMMdd)'
+- task: Docker@1
+  displayName: 'Build an image'
+  inputs:
+    imageName: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
 - task: Docker@1
   displayName: Login
   inputs:
@@ -25,8 +26,14 @@ steps:
   displayName: 'Push an image'
   inputs:
     command: 'push'
-    imageName: '$(imageName)'
-#    imageName: 'illallangi/$(system.TeamProject):latest'
-#    imageName: 'illallangi/$(system.TeamProject):$(Date:yyyyMMdd)'
-#    imageName: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
-#    imageName: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
+    imageName: 'illallangi/$(system.TeamProject):latest'
+- task: Docker@1
+  displayName: 'Push an image'
+  inputs:
+    command: 'push'
+    imageName: 'illallangi/$(system.TeamProject):$(Date:yyyyMMdd)'
+- task: Docker@1
+  displayName: 'Push an image'
+  inputs:
+    command: 'push'
+    imageName: 'illallangi/$(system.TeamProject):$(build.SourceVersion)'
